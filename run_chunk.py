@@ -20,7 +20,7 @@ logging.basicConfig(
         logging.StreamHandler(sys.stdout)
     ]
 )
-subprocess.call(["source", settings.SETUP_ENV_FILE], shell=True)
+# subprocess.call(["source", settings.SETUP_ENV_FILE], shell=True)
 
 def arg_parse_chunk():
     """
@@ -49,7 +49,7 @@ def find_files(dsid):
     nc_files = []
     for file in files:
         nc_files.append(os.path.join(dataset_dir, file))
-    logging.info(f"Found files: {nc_files}")
+    logging.debug(f"Found files: {nc_files}")
 
     return nc_files
 
@@ -205,7 +205,8 @@ def run_chunk(args):
     for ncfile in nc_files:
         logging.info(f"CHECKING {ncfile}")
         unit = run_unit(qc_type, dataset_id, ncfile)
-
+        print(unit)
+        adsf
         # if unit is False:
         #     failure_count += 1
         #     return

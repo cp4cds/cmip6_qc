@@ -11,6 +11,8 @@ import logging
 import sys
 
 import settings
+# subprocess.call(["source", settings.SETUP_ENV_FILE], shell=True)
+
 logging.basicConfig(
     level=logging.INFO,
     handlers=[
@@ -40,7 +42,7 @@ def loop_over_cmip6(args):
 
     current_directory = os.getcwd()
 
-    qc_type = args.qc_check
+    qc_type = args.qc_check[0]
 
     # iterate over models
     for cmip6, dirs, files in os.walk(settings.CMIP6_ARCHIVE_DIR):
@@ -50,9 +52,10 @@ def loop_over_cmip6(args):
             if len(dir_path.split('/')) == 9:
 
                 # calls run_batch from command line
-                cmd = f"{current_directory}/run_batch.py --simulation {dir_path} --qc_check {qc_type}"
+                cmd = f"python {current_directory}/run_batch.py --simulation {dir_path} --qc_check {qc_type}"
                 subprocess.call(cmd, shell=True)
                 logging.info(f"Running {dir_path}")
+                asdf
 
 def main():
     """Runs script if called on command line"""

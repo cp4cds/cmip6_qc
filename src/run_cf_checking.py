@@ -15,11 +15,10 @@ logging.basicConfig(
 
 def run_cfchecker(ncfile, logfile=None):
 
-
-    error_file = logfile + '.err'
+    error_file = logfile.strip('.log') + '.err'
     try:
-        logging.info(f"CF CHECK: {logfile}")
-        run_cmd = ["cfchecks", ncfile]
+        logging.info(f"CF LOG: {logfile}")
+        run_cmd = f"cfchecks {ncfile}"
         cf_out = open(output_file, "w")
         subprocess.call(run_cmd, stdout=cf_out)
         cf_out.close()
@@ -33,8 +32,7 @@ def run_cfchecker(ncfile, logfile=None):
         logging.info(f"CF CHECK FAIL: {error_file}")
         return False
         pass
-
-
+    
 
 def main(ncfile):
 

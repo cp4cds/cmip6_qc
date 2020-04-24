@@ -11,6 +11,7 @@ import subprocess
 import logging
 import sys
 import settings
+
 logging.basicConfig(
     level=logging.INFO,
     handlers=[
@@ -72,12 +73,12 @@ def loop_over_simulations(args):
                 output_base = f"{lotus_output_path}/{mip}-{inst}-{model}-{exp}"
 
                 # submit to lotus
-                bsub_command = f"bsub -q {settings.QUEUE} -W {settings.WALLCLOCK} -o " \
-                               f"{output_base}.out -e {output_base}.err {current_directory}" \
-                               f"/run_chunk.py --dataset_id {'.'.join(dataset_path.split('/'))} --qc_check {qc_type}"
+                bsub_command = f"bsub -q {settings.QUEUE} -W {settings.WALLCLOCK} " \
+                               f"-o {output_base}.out -e {output_base}.err " \
+                               f"./setup-lotus-host.sh {'.'.join(dataset_path.split('/'))} {qc_type}"
                 subprocess.call(bsub_command, shell=True)
-
-                logging.info(f"running {bsub_command}")
+                adsf
+                # logging.info(f"running {bsub_command}")
 
 
 def main():
