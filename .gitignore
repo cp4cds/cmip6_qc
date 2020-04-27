@@ -2,6 +2,8 @@
 setup-env.sh
 qc_logs/
 lotus_logs/
+nohup.out
+cf-errors.txt
 __init__.py
 
 # Byte-compiled / optimized / DLL files

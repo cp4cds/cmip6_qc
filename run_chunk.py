@@ -66,6 +66,7 @@ def run_qc(nc_file, qc_method, logfile):
     """
     
     if qc_method == 'cfchecker':
+        print("Will run cf checker")
         res = run_cfchecker(nc_file, logfile=logfile)
     elif qc_method == 'prepare':
         res = run_prepare(nc_file, logfile=logfile)
@@ -110,16 +111,13 @@ def run_unit(qc, dsid, ncfile):
         return True
 
     # Run QC check
+    print(f"will run qc")
     res = run_qc(ncfile, qc, logfile=logfile)
     
     if not res:
-        """
-        Capture error somehow
-        """
-        pass
+        logging.info(f"FAILED to run qc")
+        return False
 
-    else:
-        pass
 
     # check for success file - if exists - continue
     # success_file = f'{output_path}/{ncfile}.log'
@@ -168,9 +166,9 @@ def run_chunk(args):
     logging.info(f"Running for {dataset_id}")
 
     # exit if too many failures
-    if failure_count >= settings.EXIT_AFTER_N_FAILURES:
-        print('[ERROR] Maximum failure count met')
-        sys.exit(1)
+    # if failure_count >= settings.EXIT_AFTER_N_FAILURES:
+    #     print('[ERROR] Maximum failure count met')
+    #     sys.exit(1)
 
     # find files
     nc_files = find_files(dataset_id)
@@ -206,7 +204,6 @@ def run_chunk(args):
         logging.info(f"CHECKING {ncfile}")
         unit = run_unit(qc_type, dataset_id, ncfile)
         print(unit)
-        adsf
         # if unit is False:
         #     failure_count += 1
         #     return

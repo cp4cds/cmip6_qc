@@ -50,12 +50,11 @@ def loop_over_cmip6(args):
             dir_path = os.path.join(cmip6, dir)
             # at the simulation level
             if len(dir_path.split('/')) == 9:
-
                 # calls run_batch from command line
                 cmd = f"python {current_directory}/run_batch.py --simulation {dir_path} --qc_check {qc_type}"
                 subprocess.call(cmd, shell=True)
                 logging.info(f"Running {dir_path}")
-                asdf
+                
 
 def main():
     """Runs script if called on command line"""

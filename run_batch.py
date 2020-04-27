@@ -73,11 +73,11 @@ def loop_over_simulations(args):
                 output_base = f"{lotus_output_path}/{mip}-{inst}-{model}-{exp}"
 
                 # submit to lotus
+                dataset = '.'.join(dataset_path.split('/'))
                 bsub_command = f"bsub -q {settings.QUEUE} -W {settings.WALLCLOCK} " \
                                f"-o {output_base}.out -e {output_base}.err " \
-                               f"./setup-lotus-host.sh {'.'.join(dataset_path.split('/'))} {qc_type}"
+                               f"python run_chunk.py --dataset_id {dataset} --qc_check {qc_type}"
                 subprocess.call(bsub_command, shell=True)
-                adsf
                 # logging.info(f"running {bsub_command}")
 
 
