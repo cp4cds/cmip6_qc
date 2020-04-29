@@ -2,6 +2,7 @@
 setup-env.sh
 qc_logs/
 lotus_logs/
+data/
 nohup.out
 cf-errors.txt
 __init__.py

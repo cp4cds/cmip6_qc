@@ -22,9 +22,9 @@ def run_cfchecker(ncfile, logfile=None):
     run_cmd = f"cfchecks {ncfile}"
 
     if 1:#try:
-        cf_out, cf_err = open(logfile, "w"), open(error_file, "w")
-        subprocess.call(run_cmd.split(), stdout=cf_out, stderr=cf_err)
-        cf_out.close(), cf_err.close()
+        cf_out = open(logfile, "w")#, open(error_file, "w")
+        subprocess.call(run_cmd.split(), stdout=cf_out)#, stderr=cf_err)
+        cf_out.close()#, cf_err.close()
     else:# except:
         pass
     # if os.path.exists(error_file):
