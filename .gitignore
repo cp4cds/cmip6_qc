@@ -1,4 +1,6 @@
 # user defined
+src/test_json.json
+*.out
 setup-env.sh
 qc_logs/
 lotus_logs/
