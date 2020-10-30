@@ -57,22 +57,24 @@ def loop_over_models(args):
     for exp in experiments:
         
         lotus_output_path = settings.LOTUS_OUTPUT_PATH_TMPL.format(current_directory=current_directory,
-                                            cmip6=cmip, mip=mip, inst=inst, model=model, experiment=exp)
+                                            cmip6=cmip, mip=mip, inst=inst, model=model)#, experiment=exp)
     
         # make output directory
         if not os.path.exists(lotus_output_path):
             os.makedirs(lotus_output_path)
     
-        output_base = f"{lotus_output_path}/{mip}_{inst}_{model}_{exp}"
-    
+        # output_base = f"{lotus-slurm-logs}/{mip}_{inst}_{model}_{exp}"
+        output_base = os.path.join(lotus_output_path, f"cmip6.{mip}.{inst}.{model}.{exp}")
+
         # submit to lotus
+
         simulation = os.path.join(mip_model_path, exp)
-    
-        bsub_command = f"bsub -q {settings.QUEUE} -W {settings.WALLCLOCK} " \
-                       f"-o {output_base}.out -e {output_base}.err " \
-                       f"python run_chunk.py --simulation {simulation} --qc_check {qc_type}"
-        subprocess.call(bsub_command, shell=True)
-        # logging.info(f"running {bsub_command}")
+        cmd_string = f"python run_chunk.py --simulation {simulation} --qc_check {qc_type}"
+        sbatch_cmd = f'sbatch -p {settings.QUEUE} -t {settings.WALLCLOCK} ' \
+                       f'-o %J.out -e %J.err ' \
+                       f'--wrap "{cmd_string}"'
+        subprocess.call(sbatch_cmd, shell=True)
+        logging.info(f"running {sbatch_cmd}")
 
 
 def main():

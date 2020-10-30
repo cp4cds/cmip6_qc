@@ -17,7 +17,7 @@ logging.basicConfig(
     level=logging.INFO,
     handlers=[
         logging.StreamHandler(sys.stdout)
-    ]
+        ]
 )
 
 def arg_parse_all():
@@ -45,15 +45,20 @@ def loop_over_cmip6(args):
     qc_type = args.qc_check[0]
 
     # iterate over models
+
+    deck = os.path.join(settings.CMIP6_ARCHIVE_DIR, 'CMIP6', 'CMIP')
+    scenario = os.path.join(settings.CMIP6_ARCHIVE_DIR, 'CMIP6', 'ScenarioMIP')
+
     for cmip6, dirs, files in os.walk(settings.CMIP6_ARCHIVE_DIR):
         for dir in dirs:
             dir_path = os.path.join(cmip6, dir)
-            # at the simulation level
-            if len(dir_path.split('/')) == 8:
-                # calls run_batch from command line
-                cmd = f"python {current_directory}/run_batch.py --model {dir_path} --qc_check {qc_type}"
-                subprocess.call(cmd, shell=True)
-                logging.info(f"Running {dir_path}")
+            if dir_path.startswith(deck) or dir_path.startswith(scenario):
+                # at the simulation level
+                if len(dir_path.split('/')) == 8:
+                    # calls run_batch from command line
+                    cmd = f"python {current_directory}/run_batch.py --model {dir_path} --qc_check {qc_type}"
+                    subprocess.call(cmd, shell=True)
+                    logging.info(f"Running {dir_path}")
                 
 
 def main():
