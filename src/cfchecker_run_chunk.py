@@ -44,7 +44,7 @@ def find_files(dsid):
     :param dsid: (string) dataset id.
     :return: The netCDF files that correspond to the arguments.
     """
-    dataset_dir = os.path.join(settings.CMIP6_ARCHIVE_DIR, '/'.join(dsid.split('.')))
+    dataset_dir = os.path.join(settings.CMIP6_ARCHIVE_DIR, dsid.replace('.', '/'))
     files = os.listdir(dataset_dir)
     nc_files = []
     for file in files:

@@ -69,9 +69,9 @@ def loop_over_models(args):
         # submit to lotus
 
         simulation = os.path.join(mip_model_path, exp)
-        cmd_string = f"python run_chunk.py --simulation {simulation} --qc_check {qc_type}"
+        cmd_string = f"python cfchecker_run_chunk.py --simulation {simulation} --qc_check {qc_type}"
         sbatch_cmd = f'sbatch -p {settings.QUEUE} -t {settings.WALLCLOCK} ' \
-                       f'-o %J.out -e %J.err ' \
+                       f'-o lotus-slurm-logs/%J.out -e lotus-slurm-logs/%J.err ' \
                        f'--wrap "{cmd_string}"'
         subprocess.call(sbatch_cmd, shell=True)
         logging.info(f"running {sbatch_cmd}")

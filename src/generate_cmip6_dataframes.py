@@ -16,6 +16,7 @@ basedir = '/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/qc_logs/cf/CM
 COLUMNS = 'filepath pid cfversion timestamp error_level error_type var_id error_details logfile '.split()
 CMIP6_DF_AR6 = "../data/pkl/cmip6-ar6wg1-cf-df.pkl"
 CMIP6_DF_34G = "../data/pkl/cmip6-c3s34g-cf-df.pkl"
+CMIP6_DF_34G_csv = "../data/pkl/cmip6-c3s34g-cf-df.csv"
 ERRORS_DF_AR6 = "../data/pkl/cmip6-ar6wg1-cf-errors-df.pkl"
 CMIP6_DF = f"../data/pkl/cmip6-cf-df_{TODAY}.pkl"
 ERRORS_DF = "../data/pkl/cmip6-cf-errors-df.pkl"
@@ -74,6 +75,7 @@ def filter_df_to_c3s34g(df):
 
 def set_max_error_level(row):
     errors = []
+    error_keys = list(settings.CF_ERROR_LEVEL.keys())
     for err in error_keys:
         if err in str(row.error_details):
             errors.append(settings.CF_ERROR_LEVEL[err])
@@ -81,6 +83,7 @@ def set_max_error_level(row):
 
 
 def _return_max(values):
+
     [ str(v) for v in values ]
     if 'major' in values: return 'major'
     if 'minor' in values: return 'minor'
@@ -88,8 +91,6 @@ def _return_max(values):
 
 
 def create_cmip6_df():
-
-    error_keys = list(settings.CF_ERROR_LEVEL.keys())
 
     df = merge_logs(basedir)
     for char in settings.SPEC_CHARS:
@@ -101,25 +102,23 @@ def create_cmip6_df():
     df['error_var_type'] = 'N/A'
     df['error_var_type'][(df['error_level'] == 'ERROR') & (df['error_type'] == 'global')] = 'global'
     df['error_var_type'][(df['error_level'] == 'ERROR') & (df['error_type'] == 'variable')] = df.apply(lambda row: 'data' if row.var_id == row.filepath.split('/')[-1].split('_')[0].strip() else 'other', axis=1)
-    df['cf_severity_level'][df['error_level'] == 'ERROR'] = 'unknown'
+
+    df['cf_severity_level'] = 'unknown'
     df['cf_severity_level'][df['error_level'] == 'pass'] = 'pass'
     df['cf_severity_level'][df['error_level'] == 'ERROR'] = df.apply(lambda row: set_max_error_level(row), axis=1)
     # df['cf_severity_level'][df['error_level'] == 'ERROR'] = df.apply(lambda row: [ settings.CF_ERROR_LEVEL[err]  for err in error_keys if err in str(row.error_details) ], axis=1)
     # df_filtered = filter_df_to_ar6wg1(df)
+    df.to_pickle(CMIP6_DF)
+
     df_filtered = filter_df_to_c3s34g(df)
     df_filtered.to_pickle(CMIP6_DF_34G)
-
+    df_filtered.to_csv(CMIP6_DF_34G_csv)
     # errors_dataframe = df_filtered[df_filtered['error_level'] == 'ERROR'].reset_index()
     # errors_dataframe.to_pickle(ERRORS_DF)
     return df_filtered
 
 
 def merge_logs(basedir):
-
-    p = subprocess.Popen(['./create_expt_psvs.sh'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    p.wait()
-    p = subprocess.Popen(['./create_model_psvs.sh'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    p.wait()
 
     files = glob.glob(f'{basedir}/*/*/*/*psv')
     _dfs = [_read(_) for _ in files]
@@ -157,6 +156,7 @@ def main():
 
     if args.filter:
         df = filter_cmip6_df(df)
+
 
 if __name__ == "__main__":
     main()
