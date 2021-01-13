@@ -9,6 +9,7 @@ import subprocess
 import os
 import logging
 import sys
+from datetime import datetime as dt
 
 import settings
 # subprocess.call(["source", settings.SETUP_ENV_FILE], shell=True)
@@ -31,7 +32,7 @@ def arg_parse_all():
     parser.add_argument('-q', '--qc_check', nargs=1, type=str, choices=settings.qc_choices, required=False, default="cfchecker",
                         help=f"Chose which quality control method from {settings.qc_choices} to use default is to run all")
     
-    parser.add_argument('-f', '--file', nargs=1, type=str, required=False,
+    parser.add_argument('-f', '--file', type=str, required=False,
                         help=f" If supplied only QC the datasets in the list.")
 
     return parser.parse_args()
@@ -64,6 +65,25 @@ def loop_over_all_cmip6(args):
                 logging.info(f"Running {dir_path}")
                 
 
+def qcloop_over_datasets(datasets_file):
+
+    with open(datasets_file) as r:
+        datasets = [line.strip() for line in r]
+
+    now = dt.now().strftime('%Y%m%d.%H%M')
+    odir = os.path.join('/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/src','lotus-slurm-logs', now)
+    if not os.path.isdir(odir):
+        os.makedirs(odir)
+
+    for ds in datasets:
+        cmd_string = f'python cfchecker_run_unit.py -q cfchecker -id {ds}'
+        sbatch_cmd = f'sbatch -p {settings.QUEUE} -t 03:00:00 ' \
+              f'-o {odir}/%J.out -e {odir}/%J.err ' \
+              f'--wrap "{cmd_string}"'
+        subprocess.call(sbatch_cmd, shell=True)
+        logging.info(f"running {sbatch_cmd}")
+
+
 def main():
     """Runs script if called on command line"""
 
@@ -74,7 +94,7 @@ def main():
         # loop_over_all_cmip6(args)
     else:
         logging.info(f'QC for datasets listed in file {args.file}')
-        
+        qcloop_over_datasets(args.file)
 
 if __name__ == '__main__':
     main()

@@ -32,7 +32,7 @@ def arg_parse_chunk():
 
     parser.add_argument('-s', '--simulation', type=str,
                         help=f'Simulation level to be quality controlled')
-    parser.add_argument('-q', '--qc_check', nargs=1, type=str, choices=settings.qc_choices, required=False, default="all",
+    parser.add_argument('-q', '--qc_check', nargs=1, type=str, choices=settings.qc_choices, required=False, default="cfchecker",
                         help=f"Chose which quality control method from {settings.qc_choices} to use default is to run all")
 
     return parser.parse_args()
