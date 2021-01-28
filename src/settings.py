@@ -3,7 +3,7 @@
 EXIT_AFTER_N_FAILURES = 1000000
 CMIP6_ARCHIVE_DIR = "/badc/cmip6/data/"
 qc_choices = ["all", "cfchecker", "prepare", "nctime"]
-SETUP_ENV_FILE = "/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/setup-env.sh"
+SETUP_ENV_FILE = "/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/setup-env.sh"
 #
 # START_DATE = '1900-01-01'
 #
@@ -18,7 +18,6 @@ WALLCLOCK = '24:00:00'
 
 #LOTUS_OUTPUT_PATH_TMPL = "{current_directory}/lotus-slurm-logs/{cmip6}/{mip}/{inst}/{model}/{experiment}"
 LOTUS_OUTPUT_PATH_TMPL = "{current_directory}/lotus-slurm-logs/{cmip6}/{mip}/{inst}/{model}"
-
 CF_OUTPUT_PATH_TMPL = "{current_directory}/qc_logs/cf/{cmip6}/{mip}/{inst}/{model}/{experiment}/{ensemble}/{table}"
 # SUCCESS_PATH_TMPL = "{current_directory}/ALL_OUTPUTS/success/{stat}/{model}/{ensemble}"
 # BAD_DATA_PATH_TMPL = "{current_directory}/ALL_OUTPUTS/bad_data/{stat}/{model}/{ensemble}"

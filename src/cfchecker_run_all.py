@@ -77,7 +77,7 @@ def qcloop_over_datasets(datasets_file):
 
     for ds in datasets:
         cmd_string = f'python cfchecker_run_unit.py -q cfchecker -id {ds}'
-        sbatch_cmd = f'sbatch -p {settings.QUEUE} -t 03:00:00 ' \
+        sbatch_cmd = f'sbatch -p {settings.QUEUE} -t 18:00:00 ' \
               f'-o {odir}/%J.out -e {odir}/%J.err ' \
               f'--wrap "{cmd_string}"'
         subprocess.call(sbatch_cmd, shell=True)
@@ -95,6 +95,7 @@ def main():
     else:
         logging.info(f'QC for datasets listed in file {args.file}')
         qcloop_over_datasets(args.file)
+
 
 if __name__ == '__main__':
     main()

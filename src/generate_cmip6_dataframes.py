@@ -12,7 +12,7 @@ from datetime import datetime as dt
 
 TODAY = dt.today().isoformat().split('T')[0]
 
-basedir = '/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/qc_logs/cf/CMIP6/'
+basedir = '/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/qc_logs/cf/CMIP6/'
 COLUMNS = 'filepath pid cfversion timestamp error_level error_type var_id error_details logfile '.split()
 CMIP6_DF_AR6 = "../data/pkl/cmip6-ar6wg1-cf-df.pkl"
 CMIP6_DF_34G = "../data/pkl/cmip6-c3s34g-cf-df.pkl"
@@ -22,7 +22,7 @@ CMIP6_DF = f"../data/pkl/cmip6-cf-df_{TODAY}.pkl"
 ERRORS_DF = "../data/pkl/cmip6-cf-errors-df.pkl"
 PRIORITY_VARS_FILE = "../data/variable_lists/AR6WG1_priorityVariables.json"
 C3S34G_PRIORITY_VARS_FILE = "../data/variable_lists/c3s34g_variables.json"
-odir = "/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/c3s_34g_qc_results/QC_results/CF"
+odir = "/gws/nopw/j04/cp4cds1_vol3/c3s_34g/c3s_34g_qc_results/QC_results/CF"
 PIDBASE = "http://hdl.handle.net/"
 CF_results_path = "../../c3s_34g_qc_results/QC_results/CF/"
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-basedir=/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/qc_logs/cf/CMIP6
+basedir=/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/src/qc_logs/cf/CMIP6
 
 find ${basedir} -mindepth 4 -maxdepth 4 -type d |
 #    expt_dir=../qc_logs/cf/CMIP6/AerChemMIP/BCC/BCC-ESM1/hist-piNTCF
