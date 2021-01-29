@@ -24,7 +24,7 @@ PRIORITY_VARS_FILE = "../data/variable_lists/AR6WG1_priorityVariables.json"
 C3S34G_PRIORITY_VARS_FILE = "../data/variable_lists/c3s34g_variables.json"
 odir = "/gws/nopw/j04/cp4cds1_vol3/c3s_34g/c3s_34g_qc_results/QC_results/CF"
 PIDBASE = "http://hdl.handle.net/"
-CF_results_path = "../../c3s_34g_qc_results/QC_results/CF/"
+# CF_results_path = "../../c3s_34g_qc_results/QC_results/CF/"
 
 
 def _read(log_file):
