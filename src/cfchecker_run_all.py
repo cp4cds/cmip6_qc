@@ -13,7 +13,7 @@ from datetime import datetime as dt
 
 import settings
 # subprocess.call(["source", settings.SETUP_ENV_FILE], shell=True)
-
+current_directory = os.getcwd()
 logging.basicConfig(
     level=logging.INFO,
     handlers=[
@@ -71,17 +71,33 @@ def qcloop_over_datasets(datasets_file):
         datasets = [line.strip() for line in r]
 
     now = dt.now().strftime('%Y%m%d.%H%M')
-    odir = os.path.join('/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/src','lotus-slurm-logs', now)
+    odir = os.path.join('/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/src', 'lotus-slurm-logs', now)
     if not os.path.isdir(odir):
         os.makedirs(odir)
 
     for ds in datasets:
-        cmd_string = f'python cfchecker_run_unit.py -q cfchecker -id {ds}'
-        sbatch_cmd = f'sbatch -p {settings.QUEUE} -t 18:00:00 ' \
-              f'-o {odir}/%J.out -e {odir}/%J.err ' \
-              f'--wrap "{cmd_string}"'
-        subprocess.call(sbatch_cmd, shell=True)
-        logging.info(f"running {sbatch_cmd}")
+        cmip, mip, inst, model, experiment, ensemble, table, var, grid, version = ds.split('.')
+        output_path = settings.CF_OUTPUT_PATH_TMPL.format(current_directory=current_directory,
+                                                          cmip6=cmip, mip=mip, inst=inst, model=model,
+                                                          experiment=experiment,
+                                                          ensemble=ensemble, table=table)
+        logfile = os.path.join(output_path, ds + '.psv')
+        logging.debug(f'LOGFILE: {logfile}')
+        if not os.path.exists(logfile):
+
+            archive_dir = os.path.join('/badc/cmip6/data/CMIP6/', ds.replace('.','/'))
+            if not os.path.exists(archive_dir):
+                print(f'missing {ds}')
+            else:
+                logging.info(f'logfile does not exist performing QC')
+                cmd_string = f'python cfchecker_run_unit.py -q cfchecker -id {ds}'
+                sbatch_cmd = f'sbatch -p {settings.QUEUE} -t 22:00:00 ' \
+                      f'-o {odir}/%J.out -e {odir}/%J.err ' \
+                      f'--wrap "{cmd_string}"'
+                subprocess.call(sbatch_cmd, shell=True)
+                logging.info(f"running {sbatch_cmd}")
+        else:
+            logging.debug(f'logfile exists no qc required')
 
 
 def main():

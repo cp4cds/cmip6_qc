@@ -1,6 +1,6 @@
 #!/bin/bash
 
-basedir=/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/src/qc_logs/cf/CMIP6
+basedir=/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/src/qc_logs/cf/CMIP6
 
 find ${basedir} -mindepth 3 -maxdepth 3 -type d |
 
