@@ -1,12 +1,22 @@
 # user defined
 src/test_json.json
+src/lotus-slurm-logs
+src/qc_logs
 *.out
+*log
+*pkl
 setup-env.sh
 qc_logs/
 lotus_logs/
-data/
+data/csv
+data/json-files
+md/
+pkl/
+release1/
+release2-beta/
 nohup.out
 cf-errors.txt
+_cf_logs
 __init__.py
 
 # Byte-compiled / optimized / DLL files
