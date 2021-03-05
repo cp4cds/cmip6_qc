@@ -61,11 +61,12 @@ CF_ERROR_LEVEL["(4.3.3): Formula term nsigma not present in formula for ocean_si
 CF_ERROR_LEVEL["(4.3.3): formula_terms attribute only allowed on coordinate variables"] = "minor"
 CF_ERROR_LEVEL["(4.3.3): No formula defined for standard name: ocean_sigma_z"] = "minor"
 CF_ERROR_LEVEL["(4.3.3): Formula term nsigma not present in formula for ocean_sigma_z_coordinate"] = "minor"
+CF_ERROR_LEVEL["(5): coordinates attribute referencing non-existent variable"] = "minor"
 CF_ERROR_LEVEL["(7.3): Invalid syntax for cell_methods attribute"] = "minor"
 CF_ERROR_LEVEL["(7.3): Invalid 'name' in cell_methods attribute"] = "minor"
+CF_ERROR_LEVEL["(7.1): Incorrect dimensions for boundary variable: lat_bnds"] = "minor"
 CF_ERROR_LEVEL["(7.1): Boundary var lev_bnds has inconsistent units to lev"] = "minor"
 CF_ERROR_LEVEL["(7.1): Boundary var time_bnds has inconsistent calendar to time"] = "minor"
 CF_ERROR_LEVEL["(7.2): cell_measures variable areacello must either exist in this netCDF file or be named by the external_variables attribute"] = "minor"
 CF_ERROR_LEVEL["(7.2): cell_measures variable areacella must either exist in this netCDF file or be named by the external_variables attribute"] = "minor"
 CF_ERROR_LEVEL["(7.3): Invalid unit hours, in cell_methods comment"] = "minor"
-

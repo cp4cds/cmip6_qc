@@ -90,15 +90,24 @@ def set_max_error_level(row):
     errors = []
     for err in error_keys:
         if err in str(row.error_details):
+            print(settings.CF_ERROR_LEVEL[err])
             errors.append(settings.CF_ERROR_LEVEL[err])
     return _return_max(errors)
 
 
 def _return_max(values):
     [ str(v) for v in values ]
-    if 'major' in values: return 'major'
-    if 'minor' in values: return 'minor'
-    if 'na' in values: return 'na'
+    if 'major' in values:
+        print('major')
+        return 'major'
+    elif 'minor' in values:
+        print('minor')
+        return 'minor'
+    elif 'na' in values:
+        print('na')
+        return 'na'
+    else:
+        print('not found')
 
 
 def create_cmip6_df():
@@ -118,6 +127,7 @@ def create_cmip6_df():
     df['cf_severity_level'][df['error_level'] == 'ERROR'] = 'unknown'
     df['cf_severity_level'][df['error_level'] == 'pass'] = 'pass'
     df['cf_severity_level'][df['error_level'] == 'ERROR'] = df.apply(lambda row: set_max_error_level(row), axis=1)
+
     # df['cf_severity_level'][df['error_level'] == 'ERROR'] = df.apply(lambda row: [ settings.CF_ERROR_LEVEL[err]  for err in error_keys if err in str(row.error_details) ], axis=1)
     df_filtered = filter_df_to_ar6wg1(df)
     df_filtered.to_pickle(CMIP6_DF)
@@ -128,8 +138,6 @@ def create_cmip6_df():
 
 
 def merge_logs(basedir):
-
-
 
     files = glob.glob(f'{basedir}/*/*/*/*psv')
     _dfs = [ _read(_) for _ in files ]

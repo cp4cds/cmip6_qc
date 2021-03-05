@@ -18,16 +18,17 @@ COLUMNS = 'filepath pid cfversion timestamp error_level error_type var_id error_
 CMIP6_DF_AR6 = "../data/pkl/cmip6-ar6wg1-cf-df.pkl"
 CMIP6_DF_34G = "../data/release2/cmip6-c3s34g-cf-df.pkl"
 CMIP6_DF_34G_csv = "../data/release2/cmip6-c3s34g-cf-df.csv"
-ERRORS_DF_AR6 = "../data/pkl/cmip6-ar6wg1-cf-errors-df.pkl"
-CMIP6_DF = f"../data/pkl/cmip6-cf-df_2021-02-16.pkl"
-ERRORS_DF = "../data/pkl/cmip6-cf-errors-df.pkl"
+# ERRORS_DF_AR6 = "../data/pkl/cmip6-ar6wg1-cf-errors-df.pkl"
+CMIP6_DF = f"../data/pkl/cmip6-cf-df_{TODAY}.pkl"
+# ERRORS_DF = "../data/pkl/cmip6-cf-errors-df.pkl"
 PRIORITY_VARS_FILE = "../data/variable_lists/AR6WG1_priorityVariables.json"
 C3S34G_PRIORITY_VARS_FILE = "../data/variable_lists/c3s34g_variables.json"
-odir = "/gws/nopw/j04/cp4cds1_vol3/c3s_34g/c3s_34g_qc_results/QC_results/CF"
-PIDBASE = "http://hdl.handle.net/"
+# odir = "/gws/nopw/j04/cp4cds1_vol3/c3s_34g/c3s_34g_qc_results/QC_results/CF"
+# PIDBASE = "http://hdl.handle.net/"
 C3S_RELEASE_DATASET_IDS = '../data/release2/dataset_ids_release2-no-amip-pic_202002.txt'
 # CF_results_path = "../../c3s_34g_qc_results/QC_results/CF/"
 logging.basicConfig(format='[%(levelname)s]:%(message)s', level=logging.DEBUG)
+
 
 def main():
 
@@ -115,9 +116,12 @@ def set_max_error_level(row):
 def _return_max(values):
 
     [ str(v) for v in values ]
-    if 'major' in values: return 'major'
-    if 'minor' in values: return 'minor'
-    if 'na' in values: return 'na'
+    if 'major' in values:
+        return 'major'
+    if 'minor' in values:
+        return 'minor'
+    if 'na' in values:
+        return None
 
 
 def create_cmip6_df():
