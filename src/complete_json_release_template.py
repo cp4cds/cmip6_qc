@@ -10,11 +10,12 @@ from datetime import datetime as dt
 logging.basicConfig(format='[%(levelname)s]:%(message)s', level=logging.INFO)
 
 
-QCTEMPLATE = '../data/release2/QC_template.json'
-DATASET_ID_PIDS_FILE = '../data/release2/dataset-ids-pids_release2_202002.csv'
-CF_RESULTS_FILE = '../data/release2/cmip6-c3s34g-cf-df.pkl'
-QC_OUTPUT = '../data/release2/QC_cfchecker_test.json'
+QCTEMPLATE = '../data/release3/QC_template_v5_2021-03-25.json'
+DATASET_ID_PIDS_FILE = '../data/release3/dataset-ids-pids_release2_20200317.csv'
+CF_RESULTS_FILE = '../data/release3/cmip6-c3s34g-cf-df_2021-04-11.pkl'
+QC_OUTPUT = '../data/release3/QC_cfchecker.json'
 PASSES = ['pass', 'minor']
+
 
 def main():
 
@@ -46,34 +47,35 @@ def main():
     qc_template['header']["version"] = '1.0'
 
     # Loop over qc_template entries
-    for ds_pid in json_keys:
+    for ds_pid in list(json_keys)[:]:
         ds_id = datasets_dict[ds_pid]
-
         logging.debug(f'Dataset pid {ds_pid}\nDataset id {ds_id}')
+        logging.debug(f'/badc/cmip6/data/{ds_id.replace(".","/")}/')
         if not ds_id in list(cf_dataset_dsids):
             logging.debug(f'Dataset id not in CEDA set {ds_id}')
             continue
-
 
         dataset_df = cfres_dfs_df.loc[cfres_dfs_df['dataset_id'] == ds_id]
         ds_results = dataset_df.cf_severity_level
         dataset_qc_result = ds_results.isin(PASSES).all()
         if dataset_qc_result:
-            qc_template["datasets"][ds_pid]["ds_qc_status"] = 'pass'
+            qc_template["datasets"][ds_pid]["dset_qc_status"] = 'pass'
         else:
-            qc_template["datasets"][ds_pid]["ds_qc_status"] = 'fail'
+            qc_template["datasets"][ds_pid]["dset_qc_status"] = 'fail'
         # template_ds_entry = qc_template["datasets"][ds_pid]["qc_status"]
         # template_ds_entry = ds_qc_status
-        logging.debug(f'DATASET QC STATUS {qc_template["datasets"][ds_pid]["qc_status"]}')
+        logging.debug(f'DATASET QC STATUS {qc_template["datasets"][ds_pid]["dset_qc_status"]}')
         logging.debug(f'TEMPLATE ENTRY {qc_template["datasets"][ds_pid]}')
         f_pids = list(qc_template["datasets"][ds_pid]['files'].keys())
 
         logging.debug(f'File pids: {f_pids}')
 
         for fpid in f_pids:
+            logging.debug(f'fpid {fpid}')
             fres_df = dataset_df[dataset_df['pid'] == fpid]
             if fres_df.empty:
-                logging.info(f'FILE DATAFRAME EMPTY PID MISMATCH {ds_pid, fpid}')
+                logging.info(f'FILE DATAFRAME EMPTY PID MISMATCH {ds_id, ds_pid, fpid, }')
+                qc_template["datasets"][ds_pid]["dset_qc_status"] = 'fail'
                 continue
 
             else:
@@ -81,13 +83,13 @@ def main():
                 err_msgs = list(pid_cf_results_dict.keys())
                 severities = list(pid_cf_results_dict.values())
                 template_entry = qc_template["datasets"][ds_pid]['files'][fpid]
-                template_entry["error_severity"] = '; '.join(str(_) for _ in severities) # display as list severities
-                template_entry["error_message"] = '; '.join(str(_) for _ in err_msgs) # display as list err_msgs
+                template_entry["file_error_severity"] = '; '.join(str(_) for _ in severities) # display as list severities
+                template_entry["file_error_message"] = '; '.join(str(_) for _ in err_msgs) # display as list err_msgs
                 if all(x in PASSES for x in severities):
-                    template_entry["qc_status"] = 'pass'
+                    template_entry["file_qc_status"] = 'pass'
                 else:
-                    template_entry["qc_status"] = 'fail'
-
+                    template_entry["file_qc_status"] = 'fail'
+        
             # cf_qc_results_dict[fpid] = cfres_dfs_df.loc[cfres_dfs_df['pid'] == fpid].cf_severity_level[0]
             # cfres_df = cfres_dfs_df.loc[cfres_dfs_df['pid'] == fpid].cf_severity_level[0]
             # if cfres_df.empty:

@@ -4,7 +4,7 @@ import os, sys
 import argparse
 import logging
 
-c3s_sel_dir = '/group_workspaces/jasmin3/esgf_repl/synda/selections/cmip6-ceda-synda-selections/c3s-priority/missing_202103/'
+c3s_sel_dir = '/group_workspaces/jasmin3/esgf_repl/synda/selections/cmip6-ceda-synda-selections/c3s-priority/missing_basin/'
 
 
 def parseArgs():

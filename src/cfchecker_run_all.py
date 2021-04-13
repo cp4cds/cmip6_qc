@@ -71,7 +71,7 @@ def qcloop_over_datasets(datasets_file):
         datasets = [line.strip() for line in r]
 
     now = dt.now().strftime('%Y%m%d.%H%M')
-    odir = os.path.join('/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/src', 'lotus-slurm-logs', now)
+    odir = os.path.join('/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/src', 'lotus-slurm-logs', now)
     if not os.path.isdir(odir):
         os.makedirs(odir)
 
@@ -85,7 +85,7 @@ def qcloop_over_datasets(datasets_file):
         logging.debug(f'LOGFILE: {logfile}')
         if not os.path.exists(logfile):
 
-            archive_dir = os.path.join('/badc/cmip6/data/CMIP6/', ds.replace('.','/'))
+            archive_dir = os.path.join('/badc/cmip6/data/', ds.replace('.','/'))
             if not os.path.exists(archive_dir):
                 print(f'missing {ds}')
             else:
