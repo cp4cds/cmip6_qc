@@ -22,22 +22,17 @@ def main():
     # OPEN FILES
     with open(QCTEMPLATE) as jsn:
         qc_template = json.load(jsn)
+
     json_keys = list(qc_template["datasets"].keys())
     logging.debug(f'Number of dataset ids: {len(json_keys)}')
+
     datasets_dict = get_dataset_pids(DATASET_ID_PIDS_FILE)
     cfres_dfs_df = pd.read_pickle(CF_RESULTS_FILE)
     cfres_dfs_df = cfres_dfs_df[cfres_dfs_df['filepath'].notna()].reset_index(drop=True)
     logging.debug(f'CF results dataframe size: {len(cfres_dfs_df)}')
+
     cf_dataset_dsids = list(cfres_dfs_df['dataset_id'].dropna().unique())
     logging.debug(f'CF dataset ids list: {len(cf_dataset_dsids)}')
-    # if not len(cfres_dfs_df) == len(cf_dataset_dsids):
-    #     logging.warning(f'dataframe and list size mismatch df: {len(cfres_dfs_df)} list: {len(cf_dataset_dsids)}')
-
-    # cf_dataset_pids = set()
-    # for dsid in cf_dataset_dsids:
-    #     cf_dataset_pids.add(datasets_dict[dsid])
-    # logging.debug(f'Dataset pids {list(cf_dataset_pids)[:3]}')
-
 
     # Complete header information
     qc_template['header']["application:"] = 'CF-checker'
@@ -89,39 +84,10 @@ def main():
                     template_entry["file_qc_status"] = 'pass'
                 else:
                     template_entry["file_qc_status"] = 'fail'
-        
-            # cf_qc_results_dict[fpid] = cfres_dfs_df.loc[cfres_dfs_df['pid'] == fpid].cf_severity_level[0]
-            # cfres_df = cfres_dfs_df.loc[cfres_dfs_df['pid'] == fpid].cf_severity_level[0]
-            # if cfres_df.empty:
-            #     logging.info(f'FILE DATAFRAME EMPTY PID MISMATCH {ds_pid, fpid}')
-            #     ds_qc_status = False
-            #     continue
-            # logging.debug(f'CF results {cfres_df}')
-                
-            # if cfres_dfs.error_level.reset_index(drop=True)[0] == 'pass':
-            # if cfres_df in PASSES:
-            #     template_entry["qc_status"] = 'pass'
-       
-            # cfres_df must be in ['fail', 'major', None]
-        #     else:
-        #         assert(cfres_df in ['fail', 'major', None])
-        #         template_entry["qc_status"] = 'fail'
-        #         ds_qc_status = False
-        #
-        #     template_entry["error_severity"] = cfres_dfs.cf_severity_level.reset_index(drop=True)[0]
-        #     template_entry["error_message"] = [cfres_dfs.error_details.reset_index(drop=True)[0] if cfres_dfs.error_details.reset_index(drop=True)[0] else 'na'][0]
-        #
-        # if ds_qc_status:
-        #     qc_template["datasets"][ds_pid]["qc_status"] = 'pass'
-        # else:
-        #     qc_template["datasets"][ds_pid]["qc_status"] = 'fail'
-        #
-        # logging.debug(qc_template["datasets"][ds_pid])
 
     # Output JSON
     with open(QC_OUTPUT, "w+") as jo:
-        json.dump(qc_template, jo, indent=4)#, separators=(',', ': '))
-
+        json.dump(qc_template, jo, indent=4)
 
 
 
