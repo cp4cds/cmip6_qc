@@ -1,8 +1,21 @@
 #!/usr/bin/env python
 
-"""This script takes arguments from the command line and runs the function
+"""
+This script takes two command line arguments
+1. a dataset id
+2. the type of qc: which is now alway cfchecker
+
+Run as: python cfchecker_run_unit.py --dataset-id <id> --qc_check cfchecker
+(qc_check type should be default but specify to make sure)
+
+This can be run at the command line or as part of a batch process on LOTUS.
+
+This script calls the CF-checker as defined in the script simple_cfcheck
+and it is imported as SimpleCFChecker.
 run_unit for each of the variables provided as an argument or for
-all variables if none were provided."""
+all variables if none were provided.
+"""
+
 
 import sys
 import os
@@ -14,13 +27,9 @@ import subprocess
 import settings
 from simple_cfcheck import SimpleCFChecker
 
-logging.basicConfig(
-    level=logging.INFO,
-    handlers=[
-        logging.StreamHandler(sys.stdout)
-    ]
-)
+logging.basicConfig(level=logging.INFO,handlers=[logging.StreamHandler(sys.stdout)])
 # subprocess.call(["source", settings.SETUP_ENV_FILE], shell=True)
+
 
 def arg_parse_chunk():
     """

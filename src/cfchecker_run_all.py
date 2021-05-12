@@ -1,8 +1,22 @@
 #!/usr/bin/env python
 
-"""This script takes arguments from the command line and runs the script run_batch
-for each of the models provided as an argument or for all models if none were
-provided"""
+"""
+This script takes arguments from the command line:
+
+python cfchecker_run_all.py --qc_check cfchecker
+
+Initially it was set up to run over all of CMIP6 and utilises the ABC (All, Batch, Chunk) approach to completing this task.
+This option remains the default, however the script has evolved from this initial anticipated usage.
+
+It is now used more commonly with the supply of a list of dataset ids:
+python cfchecker_run_all.py --qc_check cfchecker --file <datasets-id-file>
+
+This approach sends each dataset to be CF-checked on LOTUS using slurm using: cfchecker_run_unit.py
+(note some datasets were large so each dataset is a separate job - this may not long term be the best approach)
+
+
+
+"""
 
 import argparse
 import subprocess
@@ -10,16 +24,11 @@ import os
 import logging
 import sys
 from datetime import datetime as dt
-
 import settings
 # subprocess.call(["source", settings.SETUP_ENV_FILE], shell=True)
 current_directory = os.getcwd()
-logging.basicConfig(
-    level=logging.INFO,
-    handlers=[
-        logging.StreamHandler(sys.stdout)
-        ]
-)
+logging.basicConfig(level=logging.INFO, handlers=[logging.StreamHandler(sys.stdout)])
+
 
 def arg_parse_all():
     """

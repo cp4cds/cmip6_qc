@@ -1,10 +1,21 @@
 #!/usr/bin/env Python
+"""
+This is the CF checker module for use in the quality control of CMIP6 data.
+
+The CF logs are written to a CF_logs directory, the logs are parsed
+and condensed with only the key bits of information written out as a pipe separated
+value (psv) file. This is for ease of future processing.
+
+TODO Update the CF log dir to pick this up from settings
+"""
+
 
 import datetime
 import os
 import subprocess
 import cfchecker.cfchecks as cfc
 from netCDF4 import Dataset
+
 
 CF_LOG_DIR = "/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/cf_logs/"
 # good_nc_path = '/badc/cmip6/data/CMIP6/AerChemMIP/BCC/BCC-ESM1/hist-piNTCF/r1i1p1f1/Amon/tas/gn/v20190621/tas_Amon_BCC-ESM1_hist-piNTCF_r1i1p1f1_gn_185001-201412.nc'

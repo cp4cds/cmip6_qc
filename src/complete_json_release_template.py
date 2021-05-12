@@ -1,5 +1,20 @@
 #!/usr/bin/env Python
 
+"""
+A json release template will be provided for you (could make this an argument rather than hardcode the name.
+You will need the datasets id and pids .csv file also provided for you
+and the output of generate_c3s-34g_dataframe.py
+
+This code loops over the template in its current form (i.e. if the dictonary levels change in the template this
+code may need to be updated)
+
+This code records all the CF file-level pass/fail information as well as aggregating the file level
+CF results into a dataset level pass/fail. The results are written to an output json file.
+
+The output file should be passed back to the 34g team via the other github repo.
+"""
+
+
 import os
 import pandas as pd
 import json
@@ -8,6 +23,7 @@ import requests
 import logging
 from datetime import datetime as dt
 logging.basicConfig(format='[%(levelname)s]:%(message)s', level=logging.INFO)
+
 
 
 QCTEMPLATE = '../data/release3/QC_template_v5_2021-03-25.json'

@@ -1,3 +1,18 @@
+#!/usr/bin/env Python
+
+"""
+This code takes the experiment level combined psv files and then generates an intermediate file by running:
+python generate_c3s-34g_dataframe.py --create
+The --filter option is redundant please now remove this.
+
+The logic here should be:
+1. Read in all psv files
+2. Add some additional columns based on the information provided.
+3. Write this out to file, currently using a binary pickle (pkl) file.
+
+The rest is redundant for the current purposes and can be removed.
+TODO: rewrite all of this.
+"""
 
 import os
 import pandas as pd
@@ -11,8 +26,10 @@ import re
 import subprocess
 from datetime import datetime as dt
 
-TODAY = dt.today().isoformat().split('T')[0]
 
+
+
+TODAY = dt.today().isoformat().split('T')[0]
 basedir = '/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/src/qc_logs/cf/CMIP6/'
 COLUMNS = 'filepath pid cfversion timestamp error_level error_type var_id error_details logfile '.split()
 CMIP6_DF_AR6 = f"../data/pkl/cmip6-ar6wg1-cf-df_{TODAY}.pkl"
