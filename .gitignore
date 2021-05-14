@@ -1,7 +1,9 @@
 # user defined
+src/outputs
 src/test_json.json
 src/lotus-slurm-logs
 src/qc_logs
+
 _qc_logs/
 *.out
 *log

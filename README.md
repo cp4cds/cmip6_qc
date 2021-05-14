@@ -4,22 +4,22 @@ CF quality control of CMIP6 data data CEDA
 ## 1. Run the QC over the identified datsets for C3S release
 
 Ag will generate a list of dataset ids that require CF checking, you can then use 
-`python cfchecker_run_all.py --file <dataset_ids-file>`
+`python cfchecker_run_all.py --file <dataset_ids-file> --qc_check cfchecker`
 
-This will call 
-- `cfchecker_run_batch.py`
-- `cfchecker_run_chunk.py`
+If using the `--file option` this calls directly: 
 - `cfchecker_run_unit.py`
 
-in turn and sends the jobs to Lotus. Each dataset is sent to lotus as some datasets are large.
+_Running without a file uses ABC unit approach calling batch and chunk._ 
+
+`cfchecker_run_unit.py` sends the jobs to Lotus. Each dataset is sent to lotus as some datasets are large.
 This produces a CF results file in the form of a psv file in a directory called `qc_logs`
 TODO move the `qc_logs` directory up one level set this in settings and then refer to the output 
 directory from there. 
 
 ## 2 Combine the CF results using 
 
-2.1 `./create_expt_psvs.sh`
-2.2 `./create_model_psvs.sh`
+- `./create_expt_psvs.sh`
+- `./create_model_psvs.sh`
 
 These can take a while to run. 
 
