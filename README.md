@@ -18,8 +18,8 @@ directory from there.
 
 ## 2 Combine the CF results using 
 
-- `./create_expt_psvs.sh`
-- `./create_model_psvs.sh`
+- `nohup ./create_expt_psvs.sh > /outdir/ofile.out &`
+- `nohup ./create_model_psvs.sh > /outdir/ofile.out &`
 
 These can take a while to run. 
 
@@ -42,6 +42,5 @@ others may be working on this. You can add your results file via a pull request 
 ## Some other potentially useful files
 - `check_for_missing_psvfiles.py`: this takes the dataset ids and makes sure that the 
 output psv file exists for a dataset. If not then you can rerun the `cfchecker_run_all.py`
-- `simple_cfcheck.py`: python script to check cf-checker is running ok. 
 - `_*py` older files that may have useful information - when you are confident you don't
 need these then remove from github and local repo. 
