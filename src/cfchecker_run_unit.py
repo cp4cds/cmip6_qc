@@ -78,7 +78,9 @@ def run_qc(dsid, ncfiles, qc, checker):
     """
 
     # define output file paths
-    current_directory = os.getcwd()  # get current working directory
+    #current_directory = os.getcwd()  # get current working directory
+    current_directory = os.path.dirname(os.getcwd()) # get directory above current to keep logs out of src dir
+
     cmip, mip, inst, model, experiment, ensemble, table, var, grid, version = dsid.split('.')
 
     logging.info(f"CHECKING {dsid}")

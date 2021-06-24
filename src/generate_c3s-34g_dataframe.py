@@ -29,7 +29,7 @@ from datetime import datetime as dt
 # input file could add this to argparse
 C3S_RELEASE_DATASET_IDS = '../data/release3/dataset_ids_20210317.txt'
 TODAY = dt.today().isoformat().split('T')[0]
-basedir = '/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/src/qc_logs/cf/CMIP6/'
+basedir = '/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/qc_logs/cf/CMIP6/'
 COLUMNS = 'filepath pid cfversion timestamp error_level error_type var_id error_details logfile '.split()
 ###
 #THESE NEED TO BE CORRECTLY SET, e.g output dir must exist, maybe take these through argparse.
@@ -68,10 +68,7 @@ def main():
         df = pd.read_pickle(CMIP6_DF)
         # df = pd.read_pickle(CMIP6_DF_AR6)
         # df = pd.read_pickle(ERRORS_DF)
-   if args.filter:
-        df = filter_cmip6_df(df)
-
-
+   
 def _read(log_file):
     return pd.read_csv(log_file, sep='|', dtype=str, header=None, names=COLUMNS, na_values='')
 
@@ -127,8 +124,10 @@ def create_c3s34g_df():
     DUMP TO BINARY 'pickle, .pkl' file could also write to csv to see output df.to_csv('a-csv-file.csv')
     this would allow inspection of results during testing.
     """
+
     logging.debug(f'writing C3S 34g DF')
     df.to_pickle(CMIP6_DF_34G)
+    df.to_csv(CMIP6_DF_34G_csv)
     return df
 
 def merge_logs(basedir):

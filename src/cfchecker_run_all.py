@@ -26,7 +26,7 @@ import sys
 from datetime import datetime as dt
 import settings
 # subprocess.call(["source", settings.SETUP_ENV_FILE], shell=True)
-current_directory = os.getcwd()
+current_directory = os.path.dirname(os.getcwd())
 logging.basicConfig(level=logging.INFO, handlers=[logging.StreamHandler(sys.stdout)])
 
 
@@ -53,7 +53,7 @@ def loop_over_all_cmip6(args):
     :param args: (namespace) Namespace object built from attributes parsed from command line
     """
 
-    current_directory = os.getcwd()
+    current_directory = os.path.dirname(os.getcwd())
 
     qc_type = args.qc_check[0]
 
@@ -80,7 +80,7 @@ def qcloop_over_datasets(datasets_file):
         datasets = [line.strip() for line in r]
 
     now = dt.now().strftime('%Y%m%d.%H%M')
-    odir = os.path.join('/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/src', 'lotus-slurm-logs', now)
+    odir = os.path.join('/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/', 'lotus-slurm-logs', now)
     if not os.path.isdir(odir):
         os.makedirs(odir)
 
