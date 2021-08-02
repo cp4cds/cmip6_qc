@@ -17,7 +17,7 @@ import cfchecker.cfchecks as cfc
 from netCDF4 import Dataset
 
 
-CF_LOG_DIR = "/group_workspaces/jasmin2/cp4cds1/vol3/c3s_34g/cmip6_qc/cf_logs/"
+CF_LOG_DIR = "/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/cf_logs/"
 # good_nc_path = '/badc/cmip6/data/CMIP6/AerChemMIP/BCC/BCC-ESM1/hist-piNTCF/r1i1p1f1/Amon/tas/gn/v20190621/tas_Amon_BCC-ESM1_hist-piNTCF_r1i1p1f1_gn_185001-201412.nc'
 # bad_nc_path = "/badc/cmip6/data/CMIP6/CMIP/MOHC/HadGEM3-GC31-MM/1pctCO2/r1i1p1f3/AERmon/ua/gn/v20200115/ua_AERmon_HadGEM3-GC31-MM_1pctCO2_r1i1p1f3_gn_194001-194912.nc"
 

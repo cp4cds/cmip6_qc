@@ -1,0 +1,1 @@
+cpu-bind=MASK - host400, task  0  0 [147227]: mask 0x100000 set
