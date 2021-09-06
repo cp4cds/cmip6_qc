@@ -1,0 +1,26 @@
+{
+
+    "header": {
+        "author": "Francesca Eggleton",
+        "creation_date": "Mon Aug 9 2021"
+    },
+    "requested":{
+        "AERday": [
+            "pr",
+            "tasmax",
+            "tasmin",
+            "zg500"
+        ],
+        "Amon": [
+            "pr",
+            "psl",
+            "tas"
+        ],
+        "day": [
+            "pr",
+            "tasmax",
+            "tasmin",
+            "zg500"
+        ]
+    }
+}
