@@ -13,8 +13,6 @@ _Running without a file uses ABC unit approach calling batch and chunk._
 
 `cfchecker_run_unit.py` sends the jobs to Lotus. Each dataset is sent to lotus as some datasets are large.
 This produces a CF results file in the form of a psv file in a directory called `qc_logs`
-TODO move the `qc_logs` directory up one level set this in settings and then refer to the output 
-directory from there. 
 
 ## 2 Combine the CF results using 
 
