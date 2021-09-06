@@ -27,7 +27,7 @@ import subprocess
 from datetime import datetime as dt
 
 # input file could add this to argparse
-C3S_RELEASE_DATASET_IDS = '../data/release3/dataset_ids_20210317.txt'
+C3S_RELEASE_DATASET_IDS = '../data/release4-decadal/dataset_ids.txt'
 TODAY = dt.today().isoformat().split('T')[0]
 basedir = '/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/qc_logs/cf/CMIP6/'
 COLUMNS = 'filepath pid cfversion timestamp error_level error_type var_id error_details logfile '.split()

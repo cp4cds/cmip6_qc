@@ -17,6 +17,6 @@ with open(ifile) as r:
 
 for ds in dataset_ids:
 
-    logfile = os.path.join('qc_logs/cf/', '.'.join(ds.split('.')[:7]).replace('.', '/'), ds+'.psv')
+    logfile = os.path.join('../qc_logs/cf/', '.'.join(ds.split('.')[:7]).replace('.', '/'), ds+'.psv')
     if not os.path.isfile(logfile):
         print(ds)

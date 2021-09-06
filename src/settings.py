@@ -24,7 +24,7 @@ CF_OUTPUT_PATH_TMPL = "{current_directory}/qc_logs/cf/{cmip6}/{mip}/{inst}/{mode
 # BAD_NUM_PATH_TMPL = "{current_directory}/ALL_OUTPUTS/bad_num/{stat}/{model}/{ensemble}"
 # NO_OUTPUT_PATH_TMPL = "{current_directory}/ALL_OUTPUTS/no_output/{stat}/{model}/{ensemble}"
 
-EXPERIMENTS = ['amip', 'historical', 'piControl', 'ssp119', 'ssp126', 'ssp245', 'ssp370', 'ssp434', 'ssp460', 'ssp534-over', 'ssp585' ]
+EXPERIMENTS = ['amip', 'historical', 'piControl', 'ssp119', 'ssp126', 'ssp245', 'ssp370', 'ssp434', 'ssp460', 'ssp534-over', 'ssp585', 'dcppA-hindcast', 'dcppB-forecast' ]
 
 SPEC_CHARS = [ '[', ']', '"', '\\']
 
