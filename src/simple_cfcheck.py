@@ -18,8 +18,8 @@ from netCDF4 import Dataset
 
 
 CF_LOG_DIR = "/gws/nopw/j04/cp4cds1_vol3/c3s_34g/cmip6_qc/cf_logs/"
-# good_nc_path = '/badc/cmip6/data/CMIP6/AerChemMIP/BCC/BCC-ESM1/hist-piNTCF/r1i1p1f1/Amon/tas/gn/v20190621/tas_Amon_BCC-ESM1_hist-piNTCF_r1i1p1f1_gn_185001-201412.nc'
-# bad_nc_path = "/badc/cmip6/data/CMIP6/CMIP/MOHC/HadGEM3-GC31-MM/1pctCO2/r1i1p1f3/AERmon/ua/gn/v20200115/ua_AERmon_HadGEM3-GC31-MM_1pctCO2_r1i1p1f3_gn_194001-194912.nc"
+good_nc_path = '/badc/cmip6/data/CMIP6/AerChemMIP/BCC/BCC-ESM1/hist-piNTCF/r1i1p1f1/Amon/tas/gn/v20190621/tas_Amon_BCC-ESM1_hist-piNTCF_r1i1p1f1_gn_185001-201412.nc'
+bad_nc_path = "/badc/cmip6/data/CMIP6/DCPP/EC-Earth-Consortium/EC-Earth3/dcppA-hindcast/s2000-r1i1p1f1/day/tasmax/gr/latest/tasmax_day_EC-Earth3_dcppA-hindcast_s2000-r1i1p1f1_gr_20101101-20111031.nc"
 
 class SimpleCFChecker(object):
 
@@ -81,16 +81,16 @@ class SimpleCFChecker(object):
 
     def get_errors(self, nc_path, rec, etype, detail, timestamp, pid, convention, cflogfile):
         errs = []
-        for level in ['FATAL', 'ERROR', 'WARNING']:
+        for level in ['FATAL', 'ERROR', 'WARN']:
              result = rec.get(level)
              if self.verbose or result:
                  errs.append(f'{nc_path}|{pid}|{convention}|{timestamp}|{level}|{etype}|{detail}|{result}|{cflogfile}')
         return errs
 
-# checker = SimpleCFChecker()
-# log_path = 'out.log'
-# for i in range(3):
-#     checker.run(bad_nc_path, log_path)
-# with open(log_path) as reader:
-#     for line in reader:
-#         print(line)
+#checker = SimpleCFChecker()
+#log_path = 'out.log'
+#for i in range(3):
+  #checker.run(bad_nc_path, log_path)
+#with open(log_path) as reader:
+   #for line in reader:
+      #print(line)
