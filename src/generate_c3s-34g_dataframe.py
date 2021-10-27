@@ -116,6 +116,7 @@ def create_c3s34g_df():
     df['cf_severity_level'] = 'unknown'
     df['cf_severity_level'][df['error_level'] == 'pass'] = 'pass'
     df['cf_severity_level'][df['error_level'] == 'ERROR'] = df.apply(lambda row: set_max_error_level(row), axis=1)
+    df['cf_severity_level'][df['error_level'] == 'WARN'] = df.apply(lambda row: set_max_error_level(row),axis=1)
     # df['cf_severity_level'][df['error_level'] == 'ERROR'] = df.apply(lambda row: [ settings.CF_ERROR_LEVEL[err]  for err in error_keys if err in str(row.error_details) ], axis=1)
     # df_filtered = filter_df_to_ar6wg1(df)
     logging.debug(f'details added')

@@ -21,15 +21,16 @@ import json
 import argparse
 import requests
 import logging
+import settings
 from datetime import datetime as dt
-logging.basicConfig(format='[%(levelname)s]:%(message)s', level=logging.INFO)
-
+#logging.basicConfig(format='[%(levelname)s]:%(message)s', level=logging.INFO)
+#logging.basicConfig(level=logging.DEBUG)
 
 # These need to be updated or use the commented out argparse at bottom
-QCTEMPLATE = '../data/release3/QC_template_v5_2021-03-25.json'
-DATASET_ID_PIDS_FILE = '../data/release3/dataset-ids-pids_release2_20200317.csv'
-CF_RESULTS_FILE = '../data/release3/cmip6-c3s34g-cf-df_2021-04-11.pkl'
-QC_OUTPUT = '../data/release3/QC_cfchecker.json'
+QCTEMPLATE = '../data/release4-decadal/QC_initial.json'
+DATASET_ID_PIDS_FILE = '../data/release4-decadal/ids_pids_29-09-21.csv'
+CF_RESULTS_FILE = '../data/release4-decadal/cmip6-c3s34g-cf-df_2021-10-01.pkl'
+QC_OUTPUT = '../data/release4-decadal/QC_cfchecker.json'
 PASSES = ['pass', 'minor']
 
 
@@ -52,9 +53,9 @@ def main():
 
     # Complete header information
     qc_template['header']["application:"] = 'CF-checker'
-    qc_template['header']["Author"] = ''
+    qc_template['header']["Author"] = 'Francesca Eggleton'
     qc_template['header']["Institution"] = 'CEDA'
-    qc_template['header']["Date"] = '2021-02-17' # <-- MAKE DYNAMIC
+    qc_template['header']["Date"] = '2021-10-01' # <-- MAKE DYNAMIC
     qc_template['header']["version"] = '1.0'
 
     # Loop over qc_template entries

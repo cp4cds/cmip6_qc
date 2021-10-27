@@ -36,6 +36,7 @@ CF_ERROR_LEVEL["(5): co-ordinate variable not monotonic"] = "major"
 CF_ERROR_LEVEL["(7.1): Incorrect number of dimensions for boundary variable: time_bounds"] = "major"
 
 
+
 CF_ERROR_LEVEL["(4.3.3): ap_bnds is not declared as a variable"] = "na"
 CF_ERROR_LEVEL["(4.3.3): b_bnds is not declared as a variable"] = "na"
 CF_ERROR_LEVEL["(4.3.3): ps is not declared as a variable"] = "na"
@@ -43,6 +44,8 @@ CF_ERROR_LEVEL["(5): Dimensions must be a subset of dimension"] = "na"
 CF_ERROR_LEVEL["(7.1): Boundary var lev_bnds has inconsistent standard_name to lev"] = "na"
 CF_ERROR_LEVEL["(7.2): Invalid cell_measures syntax"] = "na"
 
+CF_ERROR_LEVEL["(7.1): Boundary var time_bnds should not have attribute units"] = "minor"
+CF_ERROR_LEVEL["'(7.1): Boundary var time_bnds should not have attribute units'"] = "minor"
 CF_ERROR_LEVEL["Attribute missing_value of incorrect type (expecting 'Data Variable' type, got 'Numeric' type)"] = "minor"
 CF_ERROR_LEVEL["external variable must not be present in this file"] = "minor"
 CF_ERROR_LEVEL["Invalid attribute name: _CoordinateAxisType"] = "minor"
