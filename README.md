@@ -1,10 +1,14 @@
 # cmip6_qc
 CF quality control of CMIP6 data data CEDA
 
+To get started you will need: a list of dataset ids and a list of variables in json format.
+
 ## 1. Run the QC over the identified datsets for C3S release
 
 Ag will generate a list of dataset ids that require CF checking, you can then use 
 `python cfchecker_run_all.py --file <dataset_ids-file> --qc_check cfchecker`
+
+Note- this script will tell you which datasets are 'missing' ie. not in the CEDA Archive. You can run this script multiple times and it will not repeat the QC as long as there are log files showing the QC was already run.
 
 If using the `--file option` this calls directly: 
 - `cfchecker_run_unit.py`
@@ -12,9 +16,13 @@ If using the `--file option` this calls directly:
 _Running without a file uses ABC unit approach calling batch and chunk._ 
 
 `cfchecker_run_unit.py` sends the jobs to Lotus. Each dataset is sent to lotus as some datasets are large.
+To see the jobs in lotus run 'squeue -u <username>'
+
 This produces a CF results file in the form of a psv file in a directory called `qc_logs`
 
 ## 2 Combine the CF results using 
+  
+Once you have all the QC results of the datasets you want to check (no 'missing') then run:
 
 - `nohup ./create_expt_psvs.sh > /outdir/ofile.out &`
 - `nohup ./create_model_psvs.sh > /outdir/ofile.out &`
